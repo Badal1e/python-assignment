@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notepad Tracker</title>
+</head>
+<body>
+<h2>Notepad Tracker</h2>
+<input type="text" id="filePath" placeholder="Enter file path" size="50">
+<button onclick="createFile()">Create File</button><br><br>
+<textarea id="editor" rows="20" cols="80" placeholder="Start writing..."></textarea>
+
+<script>
+let timer;
+const editor = document.getElementById("editor");
+const filePathInput = document.getElementById("filePath");
+
+editor.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(saveFile, 1000);  // Save 1s after stop typing
+});
+
+function saveFile() {
+    const path = filePathInput.value;
+    const content = editor.value;
+    if(!path) return;
+    fetch("/save", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({path, content})
+    });
+}
+
+function createFile() {
+    const path = filePathInput.value;
+    if(!path) return;
+    fetch("/new", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({path})
+    }).then(res => res.json()).then(data => alert(data.message));
+}
+</script>
+</body>
+</html>
