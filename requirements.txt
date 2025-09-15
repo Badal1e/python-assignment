@@ -1,0 +1,22 @@
+# Core
+pandas
+numpy
+
+# Database
+mysql-connector-python
+sqlalchemy
+
+# Web Frameworks
+flask
+flask-sqlalchemy
+
+# Excel/CSV
+openpyxl
+xlrd
+
+# Testing
+pytest
+unittest-xml-reporting
+
+# Others
+requests
