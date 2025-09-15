@@ -1,33 +1,30 @@
+import unittest
 from src.tdd_example import TDDExample
-
-tdd_example_instance = TDDExample()
-
-def test_reverse_string():
-    text = 'foobar'
-    expected = 'raboof'
-
-    actual = tdd_example_instance.reverse_string(text)
-
-    assert expected == actual
-
-def test_find_longest_word():
-    sentence = '''
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    '''
-    expected = 'consectetur'
-    actual = tdd_example_instance.find_longest_word(sentence)
-
-    assert expected == actual
-
-def test_reverse_list():
-    expected = [1, 2, 3, 4, 5]
-    actual = tdd_example_instance.reverse_list([5, 4, 3, 2, 1])
-
-    assert expected == actual
-
-def test_count_digits():
-    expected = 3
-
-    actual = tdd_example_instance.count_digits([1, 1, 1, 2, 3], 1)
-
-    assert expected == actual
+ 
+class TestTDDExample(unittest.TestCase):
+ 
+    def setUp(self):
+        self.tdd = TDDExample()
+ 
+    def test_reverse_string(self):
+        self.assertEqual(self.tdd.reverse_string("foobar"), "raboof")
+        self.assertEqual(self.tdd.reverse_string(""), "")
+        self.assertIsNone(self.tdd.reverse_string(None))
+ 
+    def test_find_longest_word(self):
+        sentence = '''
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        '''
+        self.assertEqual(self.tdd.find_longest_word(sentence), "consectetur")
+        self.assertEqual(self.tdd.find_longest_word(""), "")
+ 
+    def test_reverse_list(self):
+        self.assertEqual(self.tdd.reverse_list([5, 4, 3, 2, 1]), [1, 2, 3, 4, 5])
+        self.assertEqual(self.tdd.reverse_list([]), [])
+ 
+    def test_count_digits(self):
+        self.assertEqual(self.tdd.count_digits([1, 1, 1, 2, 3], 1), 3)
+        self.assertEqual(self.tdd.count_digits([], 1), 0)
+ 
+if __name__ == "__main__":
+    unittest.main()
